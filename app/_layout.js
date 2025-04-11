@@ -10,6 +10,7 @@ const RootLayout = () => {
           name="forgotPassword"
           options={{ headerTitle: "Mot de passe oublié" }}
         />
+        <Stack.Screen name="settings" options={{ headerTitle: "Réglages" }} />
       </Stack>
     </AuthProvider>
   );
