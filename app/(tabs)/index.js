@@ -3,9 +3,10 @@ import { useTheme } from "react-native-paper";
 import { useAuth } from "../contexts/authContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { router } from "expo-router";
+import { Image } from "expo-image";
 
 const HomePage = () => {
-  const { user, setUser, accentColor } = useAuth();
+  const { user, accentColor, picture } = useAuth();
   const theme = useTheme();
 
   return (
@@ -26,7 +27,9 @@ const HomePage = () => {
           gap: 10,
         }}
       >
-        <Text style={{ fontSize: 20 }}>{user.username}</Text>
+        <Text style={{ fontSize: 20, color: accentColor }}>
+          {user.username}
+        </Text>
       </View>
       <View
         style={{
@@ -36,7 +39,23 @@ const HomePage = () => {
           padding: 20,
         }}
       >
-        <Text>Hello world</Text>
+        <Text>
+          {picture ? (
+            <Image
+              style={{ flex: 1, width: 250, height: 250, borderRadius: 9999 }}
+              source={picture.uri}
+              contentFit="cover"
+            />
+          ) : (
+            <Image
+              style={{ flex: 1, width: 250, height: 250, borderRadius: 9999 }}
+              source={
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              }
+              contentFit="cover"
+            />
+          )}
+        </Text>
       </View>
       <View
         style={{

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Card, Text } from "react-native-paper";
+import { Card, Text, useTheme } from "react-native-paper";
 import { useAuth } from "./contexts/authContext";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
@@ -53,6 +53,7 @@ const availableColors = [
 
 export default function Settings() {
   const { user, accentColor, setAccentColor } = useAuth();
+  const theme = useTheme();
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(accentColor);

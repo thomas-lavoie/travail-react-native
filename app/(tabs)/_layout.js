@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/authContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const TabsLayout = () => {
-  const { user, setUser, accentColor, setAccentColor } = useAuth();
+  const { user, accentColor } = useAuth();
 
   if (!user) return <Redirect href="/login" />;
 
