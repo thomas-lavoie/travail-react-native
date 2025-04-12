@@ -4,10 +4,22 @@ import { useAuth } from "../contexts/authContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { router } from "expo-router";
 import { Image } from "expo-image";
+import { Audio } from "expo-av";
 
 const HomePage = () => {
-  const { user, accentColor, picture } = useAuth();
+  const { user, accentColor, picture, audio } = useAuth();
   const theme = useTheme();
+
+  async function playRecording() {
+    if (!audio) return;
+
+    try {
+      const { sound } = await Audio.Sound.createAsync({ uri: audio });
+      await sound.playAsync();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <View
@@ -68,7 +80,7 @@ const HomePage = () => {
           justifyContent: "space-evenly",
         }}
       >
-        <Pressable onPress={() => console.log("Play audio")}>
+        <Pressable onPress={playRecording}>
           <MaterialIcons name="play-arrow" size={24} color={accentColor} />
         </Pressable>
         <Pressable onPress={() => router.push("/settings")}>

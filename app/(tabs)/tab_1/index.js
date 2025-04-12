@@ -1,4 +1,4 @@
-import { CameraView } from "expo-camera";
+import { CameraView, useCameraPermissions } from "expo-camera";
 import { Pressable, View } from "react-native";
 import { useAuth } from "../../contexts/authContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -8,11 +8,19 @@ import Slider from "@react-native-community/slider";
 const index = () => {
   const { accentColor, setPicture } = useAuth();
 
+  const [permission, requestPermission] = useCameraPermissions();
+
   const [facing, setFacing] = useState("back");
   const [flash, setFlash] = useState("off");
   const [zoom, setZoom] = useState(0);
 
   const camera = useRef();
+
+  if (!permission) return <View />;
+
+  if (!permission.granted) {
+    requestPermission();
+  }
 
   return (
     <View

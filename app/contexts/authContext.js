@@ -6,10 +6,20 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [accentColor, setAccentColor] = useState("#4169e1");
   const [picture, setPicture] = useState(null);
+  const [audio, setAudio] = useState(null);
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, accentColor, setAccentColor, picture, setPicture }}
+      value={{
+        user,
+        setUser,
+        accentColor,
+        setAccentColor,
+        picture,
+        setPicture,
+        audio,
+        setAudio,
+      }}
     >
       {children}
     </AuthContext.Provider>
