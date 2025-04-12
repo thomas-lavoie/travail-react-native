@@ -4,13 +4,12 @@ import { useAuth } from "../../contexts/authContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRef, useState } from "react";
 import Slider from "@react-native-community/slider";
-import { Text } from "react-native-paper";
 
 const index = () => {
   const { accentColor, setPicture } = useAuth();
 
   const [facing, setFacing] = useState("back");
-  const [flash, setFlash] = useState(false);
+  const [flash, setFlash] = useState("off");
   const [zoom, setZoom] = useState(0);
 
   const camera = useRef();
@@ -26,7 +25,7 @@ const index = () => {
       <CameraView
         style={{ flex: 1, borderRadius: 16 }}
         facing={facing}
-        flash={flash ? "on" : "off"}
+        flash={flash}
         zoom={zoom}
         ref={camera}
       >
@@ -66,12 +65,26 @@ const index = () => {
                 color={accentColor}
               />
             </Pressable>
-            <Pressable onPress={() => setFlash(!flash)}>
-              {flash ? (
-                <MaterialIcons name="flash-on" size={28} color={accentColor} />
-              ) : (
-                <MaterialIcons name="flash-off" size={28} color={accentColor} />
-              )}
+            <Pressable
+              onPress={() => {
+                switch (flash) {
+                  case "auto":
+                    setFlash("on");
+                    break;
+                  case "on":
+                    setFlash("off");
+                    break;
+                  case "off":
+                    setFlash("auto");
+                    break;
+                }
+              }}
+            >
+              <MaterialIcons
+                name={"flash-" + flash}
+                size={28}
+                color={accentColor}
+              />
             </Pressable>
           </View>
         </View>
